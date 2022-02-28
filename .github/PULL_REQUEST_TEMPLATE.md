@@ -1,2 +1,3 @@
+- [ ] All [tests](https://github.com/jfrog/gomod-absolutizer#tests) passed. If this feature is not already covered by the tests, I added new tests.
 - [ ] I used gofmt for formatting the code before submitting the pull request.
 -----

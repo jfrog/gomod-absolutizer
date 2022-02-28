@@ -12,6 +12,7 @@ The library is used by both the [JFrog Idea Plugin](https://github.com/jfrog/jfr
     - [As library](#as-library)
 - [Example](#example)
 - [Tests](#tests)
+- [Release Notes](#release-notes)
 - [Code contributions](#code-contributions)
 
 ## Usage
@@ -55,8 +56,8 @@ func main() {
 ## Example
 Given the following go.mod before running this program:
 ```go
-    replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
-    replace github.com/jfrog/jfrog-cli-core => ../jfrog-cli-core
+replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
+replace github.com/jfrog/jfrog-cli-core => ../jfrog-cli-core
 ```
 
 Running the following command:
@@ -64,8 +65,8 @@ Running the following command:
 
 Will modify the original go.mod to:
 ```go
-    replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
-    replace github.com/jfrog/jfrog-cli-core => /Users/frogger/code/jfrog-cli-core
+replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
+replace github.com/jfrog/jfrog-cli-core => /Users/frogger/code/jfrog-cli-core
 ```
 
 ## Tests
@@ -74,6 +75,9 @@ To run the tests, execute the following command from within the root directory o
 ```sh
 go test -v ./...
 ```
+
+# Release Notes
+The release notes are available [here](RELEASE.md#release-notes).
 
 # Code Contributions
 We welcome community contribution through pull requests.
