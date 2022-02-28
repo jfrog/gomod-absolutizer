@@ -23,6 +23,7 @@ The program expects two flags:
 | `goModPath` | Path to a go.mod                                                                                  |
 | `wd`        | Path to the working directory which will be concatenated to the relative path in the go.mod file. |
 
+
 You may use it in multiple ways:
 
 ### As script
@@ -32,8 +33,8 @@ go run . -goModPath=/path/to/go.mod -wd=/path/to/wd
 
 ### As executable
 ```sh
- go build
- ./gomod-absolutizer -goModPath=/path/to/go.mod -wd=/path/to/wd
+go build
+./gomod-absolutizer -goModPath=/path/to/go.mod -wd=/path/to/wd
 ```
 
 ### As library
