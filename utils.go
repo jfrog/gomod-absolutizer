@@ -12,52 +12,52 @@ import (
 
 type AbsolutizeArgs struct {
 	// Path to go.mod file
-	goModPath string
+	GoModPath string
 	// The working directory which will be concatenated to the relative path in the go.mod file
-	workingDir string
+	WorkingDir string
 }
 
 // Create AbsolutizeArgs struct from the input AbsolutizeArgs
-// goModPath  - Path to go.mod file
-// workingDir - The working directory which will be concatenated to the relative path in the go.mod file
+// GoModPath  - Path to go.mod file
+// WorkingDir - The working directory which will be concatenated to the relative path in the go.mod file
 func prepareArgs(goModPath, workingDir string) (*AbsolutizeArgs, error) {
 	absWorkingDir, err := filepath.Abs(workingDir)
 	if err != nil {
 		return nil, errors.New("Couldn't absolutize working directory " + workingDir)
 	}
 	return &AbsolutizeArgs{
-		goModPath:  goModPath,
-		workingDir: absWorkingDir,
+		GoModPath:  goModPath,
+		WorkingDir: absWorkingDir,
 	}, nil
 }
 
 // Make relative path in go.mod absolute
 // AbsolutizeArgs - The input arguments
 func Absolutize(args *AbsolutizeArgs) error {
-	file, errs := parseGoMod(args.goModPath)
+	file, errs := parseGoMod(args.GoModPath)
 	if errs != nil {
 		for _, err := range errs {
 			fmt.Printf("Error: %v\n", err)
 		}
-		return errors.New("Couldn't parse go.mod file " + args.goModPath)
+		return errors.New("Couldn't parse go.mod file " + args.GoModPath)
 	}
 
-	if err := replaceRelativePaths(file, args.workingDir); err != nil {
+	if err := replaceRelativePaths(file, args.WorkingDir); err != nil {
 		fmt.Printf("Error: %v\n", err)
-		return errors.New("Couldn't replace path to absolute in " + args.goModPath)
+		return errors.New("Couldn't replace path to absolute in " + args.GoModPath)
 	}
 
 	if err := saveGoMod(file); err != nil {
 		for _, err := range errs {
 			fmt.Printf("Error: %v\n", err)
 		}
-		return errors.New("Couldn't save go.mod in " + args.goModPath)
+		return errors.New("Couldn't save go.mod in " + args.GoModPath)
 	}
 	return nil
 }
 
 // Parse go.mod file and return structurized object
-// goModPath - Path to go.mod file
+// GoModPath - Path to go.mod file
 func parseGoMod(goModPath string) (result *modfile.File, errs []error) {
 	file, err := os.Open(filepath.Clean(goModPath))
 	if err != nil {
@@ -88,7 +88,7 @@ func parseGoMod(goModPath string) (result *modfile.File, errs []error) {
 
 // Replace relative paths in go.mod to absolute paths
 // file       - Parsed go.mod file
-// workingDir - The working directory which will be concatenated to the relative path in the go.mod file
+// WorkingDir - The working directory which will be concatenated to the relative path in the go.mod file
 func replaceRelativePaths(file *modfile.File, workingDir string) error {
 	for _, replace := range file.Replace {
 		currentPath := replace.New.Path

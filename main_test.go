@@ -15,11 +15,11 @@ func TestAbsolutizeUnix(t *testing.T) {
 		t.Skip("Skipping test on Windows")
 	}
 	args := prepareGoMod(t, "unix", "/test/dummy/abs")
-	defer os.Remove(args.goModPath)
+	defer os.Remove(args.GoModPath)
 	assert.NoError(t, Absolutize(args))
 
 	// Check results
-	goMod, errs := parseGoMod(args.goModPath)
+	goMod, errs := parseGoMod(args.GoModPath)
 	assert.Nil(t, errs)
 	assert.Equal(t, module.Version{Path: "/test/dummy/a", Version: ""}, goMod.Replace[0].New)
 	assert.Equal(t, module.Version{Path: "/test/dummy/a", Version: ""}, goMod.Replace[0].New)
@@ -32,11 +32,11 @@ func TestAbsolutizeWin(t *testing.T) {
 		t.Skip("Skipping test on Unix")
 	}
 	args := prepareGoMod(t, "windows", "C:\\test\\dummy\\abs")
-	defer os.Remove(args.goModPath)
+	defer os.Remove(args.GoModPath)
 	assert.NoError(t, Absolutize(args))
 
 	// Check results
-	goMod, errs := parseGoMod(args.goModPath)
+	goMod, errs := parseGoMod(args.GoModPath)
 	assert.Nil(t, errs)
 	assert.Equal(t, module.Version{Path: "C:\\test\\dummy\\a", Version: ""}, goMod.Replace[0].New)
 	assert.Equal(t, module.Version{Path: "C:\\test\\dummy\\a", Version: ""}, goMod.Replace[0].New)
@@ -65,5 +65,5 @@ func prepareGoMod(t *testing.T, goModDir, workingDir string) *AbsolutizeArgs {
 	assert.NoError(t, err)
 	err = ioutil.WriteFile(goModPath.Name(), bytesRead, 0644)
 	assert.NoError(t, err)
-	return &AbsolutizeArgs{goModPath: goModPath.Name(), workingDir: workingDir}
+	return &AbsolutizeArgs{GoModPath: goModPath.Name(), WorkingDir: workingDir}
 }
