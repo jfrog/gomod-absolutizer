@@ -26,7 +26,7 @@ jobs:
       # Run gosec
       - name: Install gosec
         run: curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && matrix.go == '1.17'
       - name: Run gosec
         run: gosec ./...
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && matrix.go == '1.17'
