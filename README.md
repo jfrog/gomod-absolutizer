@@ -39,7 +39,7 @@ go run . -goModPath=/path/to/go.mod -wd=/path/to/wd
 ### As library
 ```go
 import (
-	absolutizer "github.com/jfrog/gomod-absolutizer"
+    absolutizer "github.com/jfrog/gomod-absolutizer"
 )
 
 func main() {
