@@ -55,7 +55,7 @@ func main() {
 
 ## Example
 Given the following go.mod before running this program:
-```go
+```
 replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
 replace github.com/jfrog/jfrog-cli-core => ../jfrog-cli-core
 ```
@@ -64,7 +64,7 @@ Running the following command:
 `> go run . -goModPath=/Users/frogger/code/jfrog-cli/go.mod -wd=/Users/frogger/code/jfrog-cli`
 
 Will modify the original go.mod to:
-```go
+```
 replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
 replace github.com/jfrog/jfrog-cli-core => /Users/frogger/code/jfrog-cli-core
 ```
