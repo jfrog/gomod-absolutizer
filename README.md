@@ -61,6 +61,7 @@ replace github.com/jfrog/jfrog-cli-core => ../jfrog-cli-core
 ```
 
 Running the following command:
+
 `> go run . -goModPath=/Users/frogger/code/jfrog-cli/go.mod -wd=/Users/frogger/code/jfrog-cli`
 
 Will modify the original go.mod to:
