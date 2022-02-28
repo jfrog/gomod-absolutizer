@@ -18,10 +18,10 @@ The library is used by both the [JFrog Idea Plugin](https://github.com/jfrog/jfr
 ## Usage
 The program expects two flags:
 
-| Flag        | Description                                                                                       |
-|-------------|---------------------------------------------------------------------------------------------------|
-| `goModPath` | Path to a go.mod                                                                                  |
-| `wd`        | Path to the working directory which will be concatenated to the relative path in the go.mod file. |
+| Flag        | Description                                                                                        |
+|-------------|----------------------------------------------------------------------------------------------------|
+| `goModPath` | Path to a go.mod.                                                                                  |
+| `wd`        | Path to the working directory, which will be concatenated to the relative path in the go.mod file. |
 
 
 You may use it in multiple ways:
