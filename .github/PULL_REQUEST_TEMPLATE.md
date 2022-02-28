@@ -1,0 +1,2 @@
+- [ ] I used gofmt for formatting the code before submitting the pull request.
+-----
