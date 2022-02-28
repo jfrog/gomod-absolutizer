@@ -1,0 +1,40 @@
+# gomod-absolutizer
+
+**gomod-absolutizer** is a Go library used to search and replace relative paths in go.mod files to absolute paths.
+
+The library is used by both the [JFrog Idea Plugin](https://github.com/jfrog/jfrog-idea-plugin) and the [JFrog VS Code Extension](https://github.com/jfrog/jfrog-vscode-extension).
+
+## Usage
+The program expects two flags:
+
+| Flag         | Description                                                                                       |
+|--------------|---------------------------------------------------------------------------------------------------|
+| `-goModPath` | Path to a go.mod                                                                                  |
+| `-wd`        | Path to the working directory which will be concatenated to the relative path in the go.mod file. |
+
+
+## Example
+Given the following go.mod before running this program:
+```go
+    replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
+    replace github.com/jfrog/jfrog-cli-core => ../jfrog-cli-core
+```
+
+Running the following command:
+`> go run . -goModPath=/Users/frogger/code/jfrog-cli/go.mod -wd=/Users/frogger/code/jfrog-cli`
+
+Will modify the original go.mod to:
+```go
+    replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
+    replace github.com/jfrog/jfrog-cli-core => /Users/frogger/code/jfrog-cli-core
+```
+
+## Tests
+To run the tests, execute the following command from within the root directory of the project:
+
+```sh
+go test -v ./...
+```
+
+# Code Contributions
+We welcome community contribution through pull requests.

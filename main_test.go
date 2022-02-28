@@ -16,7 +16,7 @@ func TestAbsolutizeUnix(t *testing.T) {
 	}
 	args := prepareGoMod(t, "unix", "/test/dummy/abs")
 	defer os.Remove(args.goModPath)
-	assert.NoError(t, absolutize(args))
+	assert.NoError(t, Absolutize(args))
 
 	// Check results
 	goMod, errs := parseGoMod(args.goModPath)
@@ -33,7 +33,7 @@ func TestAbsolutizeWin(t *testing.T) {
 	}
 	args := prepareGoMod(t, "windows", "C:\\test\\dummy\\abs")
 	defer os.Remove(args.goModPath)
-	assert.NoError(t, absolutize(args))
+	assert.NoError(t, Absolutize(args))
 
 	// Check results
 	goMod, errs := parseGoMod(args.goModPath)
@@ -58,12 +58,12 @@ func TestBadGoModPath(t *testing.T) {
 	assert.Nil(t, goMod)
 }
 
-func prepareGoMod(t *testing.T, goModDir, workingDir string) *args {
+func prepareGoMod(t *testing.T, goModDir, workingDir string) *AbsolutizeArgs {
 	goModPath, err := ioutil.TempFile("", "go.mod")
 	assert.NoError(t, err)
 	bytesRead, err := ioutil.ReadFile(filepath.Join("testdata", goModDir, "go.mod"))
 	assert.NoError(t, err)
 	err = ioutil.WriteFile(goModPath.Name(), bytesRead, 0644)
 	assert.NoError(t, err)
-	return &args{goModPath: goModPath.Name(), workingDir: workingDir}
+	return &AbsolutizeArgs{goModPath: goModPath.Name(), workingDir: workingDir}
 }

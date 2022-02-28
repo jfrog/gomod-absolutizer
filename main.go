@@ -5,21 +5,11 @@ import (
 	"os"
 )
 
-// This program searches and replaces relative paths in go.mod files to absolute paths.
-// For example:
-// go.mod before running this program:
-// ...
-// replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
-// replace github.com/jfrog/jfrog-cli-core => ../jfrog-cli-core
-//
-// Running the following command:
-// > go run . -goModPath=/Users/frogger/code/jfrog-cli/go.mod -wd=/Users/frogger/code/jfrog-cli
-//
-// go.mod after running this program:
-// ...
-// replace github.com/jfrog/jfrog-client-go v1.2.3 => github.com/jfrog/jfrog-client-go v1.2.4
-// replace github.com/jfrog/jfrog-cli-core => /Users/frogger/code/jfrog-cli-core
 func main() {
+	exitIfError(prepareAndAbsolutize())
+}
+
+func prepareAndAbsolutize() error {
 	goModPath := flag.String("goModPath", "", "Path to go.mod")
 	workingDir := flag.String("wd", "", "Path to working directory")
 	flag.Parse()
@@ -29,6 +19,8 @@ func main() {
 	}
 
 	args, err := prepareArgs(*goModPath, *workingDir)
-	exitIfError(err)
-	exitIfError(absolutize(args))
+	if err != nil {
+		return err
+	}
+	return Absolutize(args)
 }

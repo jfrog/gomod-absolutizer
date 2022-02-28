@@ -1,0 +1,12 @@
+# IDEs
+.idea
+.vscode
+*.iml
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Project executable
+gomod-absolutizer
+gomod-absolutizer.exe
+

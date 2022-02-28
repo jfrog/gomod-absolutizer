@@ -10,30 +10,30 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-type args struct {
+type AbsolutizeArgs struct {
 	// Path to go.mod file
 	goModPath string
 	// The working directory which will be concatenated to the relative path in the go.mod file
 	workingDir string
 }
 
-// Create args struct from the input args
+// Create AbsolutizeArgs struct from the input AbsolutizeArgs
 // goModPath  - Path to go.mod file
 // workingDir - The working directory which will be concatenated to the relative path in the go.mod file
-func prepareArgs(goModPath, workingDir string) (*args, error) {
+func prepareArgs(goModPath, workingDir string) (*AbsolutizeArgs, error) {
 	absWorkingDir, err := filepath.Abs(workingDir)
 	if err != nil {
 		return nil, errors.New("Couldn't absolutize working directory " + workingDir)
 	}
-	return &args{
+	return &AbsolutizeArgs{
 		goModPath:  goModPath,
 		workingDir: absWorkingDir,
 	}, nil
 }
 
-// Make relatie path in go.mod absolute
-// args - The input arguments
-func absolutize(args *args) error {
+// Make relative path in go.mod absolute
+// AbsolutizeArgs - The input arguments
+func Absolutize(args *AbsolutizeArgs) error {
 	file, errs := parseGoMod(args.goModPath)
 	if errs != nil {
 		for _, err := range errs {

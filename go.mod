@@ -1,4 +1,4 @@
-module github.com/jfrog/gomod-abs
+module github.com/jfrog/gomod-absolutizer
 
 go 1.16
 
