@@ -1,0 +1,43 @@
+name: "Static Analysis"
+on: [push, pull_request]
+jobs:
+  Go-Lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.17.x
+      - name: Run Go vet
+        run: go vet -v ./...
+  Static-Check:
+    name: Static Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.17.x
+      - name: Static Code Analysis
+        uses: dominikh/staticcheck-action@v1
+        with:
+          install-go: false
+  Go-Sec:
+    name: Go-Sec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.17.x
+      - name: Install gosec
+        run: curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+      - name: Run gosec
+        run: gosec ./...
