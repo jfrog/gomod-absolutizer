@@ -9,24 +9,16 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        go: ["1.15", "1.16", "1.17"]
+        go: ["1.16", "1.17", "1.18", "1.19"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Install Go
       - name: Setup Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go }}
 
       # Run tests
       - name: Test
         run: go test ./... -v
-
-      # Run gosec
-      - name: Install gosec
-        run: curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
-        if: runner.os == 'Linux' && matrix.go == '1.17'
-      - name: Run gosec
-        run: gosec ./...
-        if: runner.os == 'Linux' && matrix.go == '1.17'
