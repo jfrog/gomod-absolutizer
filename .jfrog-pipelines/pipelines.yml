@@ -8,7 +8,7 @@ resources:
       gitProvider: il_automation
 
 pipelines:
-  - name: Release
+  - name: release_gomod_abs
     configuration:
       runtime:
         type: image
