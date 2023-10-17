@@ -52,12 +52,12 @@ func TestErroneousGoMod(t *testing.T) {
 }
 
 func TestMinGoVersionGoMod(t *testing.T) {
-	_, errs := parseGoMod(filepath.Join("testdata", "version","minor", "go.mod"))
+	_, errs := parseGoMod(filepath.Join("testdata", "version", "minor", "go.mod"))
 	assert.Nil(t, errs)
 }
 
 func TestMinGoVersionWithPatchGoMod(t *testing.T) {
-	_, errs := parseGoMod(filepath.Join("testdata", "version","patch", "go.mod"))
+	_, errs := parseGoMod(filepath.Join("testdata", "version", "patch", "go.mod"))
 	assert.Nil(t, errs)
 }
 
