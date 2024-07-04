@@ -1,10 +1,10 @@
 module github.com/jfrog/gomod-absolutizer
 
-go 1.22.3
+go 1.17
 
 require (
 	github.com/stretchr/testify v1.8.1
-	golang.org/x/mod v0.11.0
+	golang.org/x/mod v0.18.0
 )
 
 require (
