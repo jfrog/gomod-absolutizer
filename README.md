@@ -1,5 +1,7 @@
 # Go Modules Absolutizer
 
+> Supported Go version: 1.18+
+
 Go Modules Absolutizer is a Go library, used to search and replace relative paths in go.mod files to absolute paths.
 The library is used by both the [JFrog Idea Plugin](https://github.com/jfrog/jfrog-idea-plugin) and the [JFrog VS Code Extension](https://github.com/jfrog/jfrog-vscode-extension).
 
