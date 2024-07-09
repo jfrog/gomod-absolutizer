@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -59,11 +58,11 @@ func TestBadGoModPath(t *testing.T) {
 }
 
 func prepareGoMod(t *testing.T, goModDir, workingDir string) *AbsolutizeArgs {
-	goModPath, err := ioutil.TempFile("", "go.mod")
+	goModPath, err := os.CreateTemp("", "go.mod")
 	assert.NoError(t, err)
-	bytesRead, err := ioutil.ReadFile(filepath.Join("testdata", goModDir, "go.mod"))
+	bytesRead, err := os.ReadFile(filepath.Join("testdata", goModDir, "go.mod"))
 	assert.NoError(t, err)
-	err = ioutil.WriteFile(goModPath.Name(), bytesRead, 0644)
+	err = os.WriteFile(goModPath.Name(), bytesRead, 0644)
 	assert.NoError(t, err)
 	return &AbsolutizeArgs{GoModPath: goModPath.Name(), WorkingDir: workingDir}
 }
