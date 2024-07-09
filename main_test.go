@@ -50,6 +50,16 @@ func TestErroneousGoMod(t *testing.T) {
 	assert.Nil(t, goMod)
 }
 
+func TestMinGoVersionGoMod(t *testing.T) {
+	_, errs := parseGoMod(filepath.Join("testdata", "version", "minor", "go.mod"))
+	assert.Nil(t, errs)
+}
+
+func TestMinGoVersionWithPatchGoMod(t *testing.T) {
+	_, errs := parseGoMod(filepath.Join("testdata", "version", "patch", "go.mod"))
+	assert.Nil(t, errs)
+}
+
 func TestBadGoModPath(t *testing.T) {
 	goMod, errs := parseGoMod(filepath.Join("testdata", "nonexist", "go.mod"))
 	assert.Len(t, errs, 1)
