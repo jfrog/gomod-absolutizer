@@ -1,11 +1,14 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"golang.org/x/mod/modfile"
 )
@@ -79,7 +82,8 @@ func parseGoMod(goModPath string) (result *modfile.File, errs []error) {
 		return nil, append(errs, err)
 	}
 
-	result, err = modfile.Parse(goModPath, goModContent, nil)
+	sanitizedGoMod := sanitizeGoMod(goModContent)
+	result, err = modfile.Parse(goModPath, sanitizedGoMod, nil)
 	if err != nil {
 		return nil, append(errs, err)
 	}
@@ -136,4 +140,32 @@ func exitIfError(err error) {
 	}
 	fmt.Println(err.Error())
 	os.Exit(1)
+}
+
+// This function removes the patch version of go from the go mod file as the parsing function cannot accept a patch in go version.
+func sanitizeGoMod(data []byte) []byte {
+	var out bytes.Buffer
+	scanner := bufio.NewScanner(bytes.NewReader(data))
+	found := false
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		trimmed := strings.TrimSpace(line)
+
+		if !found && strings.HasPrefix(trimmed, "go ") {
+			parts := strings.Fields(trimmed)
+			if len(parts) == 2 {
+				versionParts := strings.Split(parts[1], ".")
+				if len(versionParts) >= 2 {
+					// Rewrite the line with major.minor only
+					line = "go " + versionParts[0] + "." + versionParts[1]
+					found = true // we only sanitize the first go directive
+				}
+			}
+		}
+		out.WriteString(line)
+		out.WriteByte('\n')
+	}
+
+	return out.Bytes()
 }
